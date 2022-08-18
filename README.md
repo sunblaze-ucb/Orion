@@ -8,10 +8,14 @@ Note that this library has not received a security review or audit.
 
 # Highlights
 
-## General Polynomial Commitment: we supports both univariant and multivariant polynomial commitment schemes. 
-## Succinct proof size: the proof size of our system is $O(\log^2 N)$
-## State-of-the-art performance: we offers the fastest prover that can prove $2^{27}$ coefficients within $100$s in single thread mode.
-## Expander testing: we offer our expander testing protocol for people to setup their own expander.
+### General Polynomial Commitment
+We supports both univariant and multivariant polynomial commitment schemes. 
+### Succinct proof size
+The proof size of our system is $O(\log^2 N)$
+### State-of-the-art performance
+We offers the fastest prover that can prove $2^{27}$ coefficients within $100$s in single thread mode.
+### Expander testing
+We offer our expander testing protocol for people to setup their own expander.
 
 # Interface
 
