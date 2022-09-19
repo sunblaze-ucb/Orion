@@ -412,7 +412,42 @@ std::pair<prime_field::field_element, bool> open_and_verify(prime_field::field_e
     return answer;
 }
 
-std::pair<prime_field::field_element, bool> open_and_verify(prime_field::field_element *r, int size_r, int N)
+void dfs(prime_field::field_element *dst, prime_field::field_element *r, int size, int depth, prime_field::field_element val)
 {
-    assert(0);
+    if(size == 1)
+    {
+        *dst = val;
+    }
+    else
+    {
+        dfs(dst, r, size / 2, depth + 1, val * (prime_field::field_element(1) - r[depth]));
+        dfs(dst + (size / 2), r, size / 2, depth + 1, val * r[depth]);
+    }
+}
+
+std::pair<prime_field::field_element, bool> open_and_verify(prime_field::field_element *r, int size_r, int N, __hhash_digest *com_mt)
+{
+    assert(N % column_size == 0);
+    prime_field::field_element *r0, *r1;
+
+    r0 = new prime_field::field_element[column_size];
+    r1 = new prime_field::field_element[N / column_size];
+    int log_column_size = 0;
+    while(true)
+    {
+        if((1 << log_column_size) == column_size)
+        {
+            break;
+        }
+        log_column_size++;
+    }
+    dfs(r0, r, column_size, 0, prime_field::field_element(1));
+    dfs(r1, r + log_column_size, N / column_size, 0, prime_field::field_element(1));
+
+
+
+    auto answer = tensor_product_protocol(r0, r1, column_size, N / column_size, N, com_mt);
+    delete[] r0;
+    delete[] r1;
+    return answer;
 }
